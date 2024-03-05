@@ -1,14 +1,12 @@
-// Описаний в документації
 import SimpleLightbox from 'simplelightbox';
-// Додатковий імпорт стилів
 import 'simplelightbox/dist/simple-lightbox.min.css';
 
-const lightbox = new SimpleLightbox('.gallery', {
+const lightbox = new SimpleLightbox('.gallery-link', {
   captionData: 'alt',
   captionDelay: 250,
 });
 
-console.log(SimpleLightbox);
+console.log(lightbox);
 
 const images = [
   {
@@ -79,7 +77,7 @@ const images = [
 const galleryContainer = document.querySelector('.gallery');
 galleryContainer.innerHTML = createGalleryView(images);
 
-export function createGalleryView(images) {
+function createGalleryView(images) {
   return images
     .map(
       ({ preview, original, description }) => `
