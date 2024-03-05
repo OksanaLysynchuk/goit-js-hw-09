@@ -35,12 +35,12 @@ img.gallery-image:hover {
   flex-direction: column;
 }
 
-.input {
+.email {
   width: 360px;
   height: 40px;
 }
 
-.textarea {
+.message {
   width: 360px;
   height: 80px;
 }
