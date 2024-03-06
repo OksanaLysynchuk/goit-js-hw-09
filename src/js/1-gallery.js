@@ -1,7 +1,7 @@
-import SimpleLightbox from 'simplelightbox';
+import simpleLightbox from 'simplelightbox';
 import 'simplelightbox/dist/simple-lightbox.min.css';
 
-const lightbox = new SimpleLightbox('.gallery-link', {
+const lightbox = new simpleLightbox('.gallery-link', {
   captionData: 'alt',
   captionDelay: 250,
 });
@@ -86,7 +86,6 @@ function createGalleryView(images) {
     <img
       class="gallery-image"
       src="${preview}"
-      data-source="${original}"
       alt="${description}"
     />
   </a>
@@ -95,15 +94,3 @@ function createGalleryView(images) {
     )
     .join('');
 }
-
-galleryContainer.addEventListener('click', event => {
-  event.preventDefault();
-  if (event.target.nodeName !== 'IMG') {
-    return;
-  }
-
-  const largeImageUrl = event.target.dataset.source;
-  basicLightbox
-    .create(`<img src="${largeImageUrl}" width="1112px" height="640">`)
-    .show();
-});

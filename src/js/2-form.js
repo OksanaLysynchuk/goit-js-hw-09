@@ -19,26 +19,36 @@ formPage.insertAdjacentHTML(
     `
 );
 
-function saveFormState() {
-  const email = document.querySelector('.email').value;
-  const message = document.querySelector('.message').value;
-  const formData = { email, message };
-  localStorage.setItem('feedback-form-state', JSON.stringify(formData));
+function filledForm() {
+  const storedData = localStorage.getItem('feedback-form-state');
+
+  if (storedData) {
+    const formData = JSON.parse(storedData);
+
+    document.querySelector('.email').value = formData.email;
+    document.querySelector('.message').value = formData.message;
+  } else {
+    document.querySelector('.email').value = '';
+    document.querySelector('.message').value = '';
+  }
 }
 
-function clearFormState() {
-  localStorage.removeItem('feedback-form-state');
-}
+formPage.addEventListener('input', function (event) {
+  if (event.target.matches('.email, .message')) {
+    const email = document.querySelector('.email').value;
+    const message = document.querySelector('.message').value;
 
-document.querySelector('.form').addEventListener('submit', function (event) {
+    const formData = { email, message };
+
+    localStorage.setItem('feedback-form-state', JSON.stringify(formData));
+  }
+});
+
+formPage.addEventListener('submit', function (event) {
   event.preventDefault();
-  const email = document.querySelector('.email').value;
-  const message = document.querySelector('.message').value;
-  console.log({ email, message });
-  clearFormState();
+
+  localStorage.removeItem('feedback-form-state');
+
   document.querySelector('.email').value = '';
   document.querySelector('.message').value = '';
 });
-
-// Виклик функції для збереження даних форми в локальне сховище при відправці
-document.querySelector('.form').addEventListener('submit', saveFormState);
