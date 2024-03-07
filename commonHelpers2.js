@@ -13,5 +13,5 @@ import"./assets/styles-78bd03a9.js";const t=document.querySelector(".form");t.in
         </label>
         <button class="button" type="submit">Submit</button>
       </form>
-    `);t.addEventListener("input",function(e){if(e.target.matches(".email, .message")){const a=document.querySelector(".email").value,s=document.querySelector(".message").value,l={email:a,message:s};localStorage.setItem("feedback-form-state",JSON.stringify(l))}});t.addEventListener("submit",function(e){e.preventDefault(),localStorage.removeItem("feedback-form-state"),document.querySelector(".email").value="",document.querySelector(".message").value=""});
+    `);document.addEventListener("DOMContentLoaded",function(){const o=t.querySelector('input[name="email"]'),l=t.querySelector('textarea[name="message"]'),s="feedback-form-state";function m(){const e={email:o.value.trim(),message:l.value.trim()};localStorage.setItem(s,JSON.stringify(e))}function r(){const e=localStorage.getItem(s);if(e){const a=JSON.parse(e);o.value=a.email,l.value=a.message}}r(),t.addEventListener("input",function(){m()}),t.addEventListener("submit",function(e){e.preventDefault();const a=o.value.trim(),n=l.value.trim();a!==""&&n!==""?(console.log({email:a,message:n}),localStorage.removeItem(s),o.value="",l.value=""):alert("Будь ласка, заповніть обидва поля форми.")})});
 //# sourceMappingURL=commonHelpers2.js.map
