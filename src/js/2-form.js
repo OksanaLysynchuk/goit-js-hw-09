@@ -19,36 +19,49 @@ formPage.insertAdjacentHTML(
     `
 );
 
-function filledForm() {
-  const storedData = localStorage.getItem('feedback-form-state');
+document.addEventListener('DOMContentLoaded', function () {
+  const emailInput = formPage.querySelector('input[name="email"]');
+  const messageInput = formPage.querySelector('textarea[name="message"]');
+  const localStorageKey = 'feedback-form-state';
 
-  if (storedData) {
-    const formData = JSON.parse(storedData);
-
-    document.querySelector('.email').value = formData.email;
-    document.querySelector('.message').value = formData.message;
-  } else {
-    document.querySelector('.email').value = '';
-    document.querySelector('.message').value = '';
+  function saveToLocalStorage() {
+    const formData = {
+      email: emailInput.value.trim(),
+      message: messageInput.value.trim(),
+    };
+    localStorage.setItem(localStorageKey, JSON.stringify(formData));
   }
-}
 
-formPage.addEventListener('input', function (event) {
-  if (event.target.matches('.email, .message')) {
-    const email = document.querySelector('.email').value;
-    const message = document.querySelector('.message').value;
-
-    const formData = { email, message };
-
-    localStorage.setItem('feedback-form-state', JSON.stringify(formData));
+  function loadFromLocalStorage() {
+    const savedData = localStorage.getItem(localStorageKey);
+    if (savedData) {
+      const formData = JSON.parse(savedData);
+      emailInput.value = formData.email;
+      messageInput.value = formData.message;
+    }
   }
-});
 
-formPage.addEventListener('submit', function (event) {
-  event.preventDefault();
+  loadFromLocalStorage();
 
-  localStorage.removeItem('feedback-form-state');
+  formPage.addEventListener('input', function () {
+    saveToLocalStorage();
+  });
 
-  document.querySelector('.email').value = '';
-  document.querySelector('.message').value = '';
+  formPage.addEventListener('submit', function (event) {
+    event.preventDefault();
+
+    const email = emailInput.value.trim();
+    const message = messageInput.value.trim();
+
+    if (email !== '' && message !== '') {
+      console.log({ email, message });
+
+      localStorage.removeItem(localStorageKey);
+
+      emailInput.value = '';
+      messageInput.value = '';
+    } else {
+      alert('Будь ласка, заповніть обидва поля форми.');
+    }
+  });
 });

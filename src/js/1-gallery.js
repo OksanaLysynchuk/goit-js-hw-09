@@ -1,13 +1,3 @@
-import simpleLightbox from 'simplelightbox';
-import 'simplelightbox/dist/simple-lightbox.min.css';
-
-const lightbox = new simpleLightbox('.gallery-link', {
-  captionData: 'alt',
-  captionDelay: 250,
-});
-
-console.log(lightbox);
-
 const images = [
   {
     preview:
@@ -94,3 +84,13 @@ function createGalleryView(images) {
     )
     .join('');
 }
+
+import simpleLightbox from 'simplelightbox';
+import 'simplelightbox/dist/simple-lightbox.min.css';
+
+const lightbox = new simpleLightbox('.gallery-link', {
+  captionData: 'alt',
+  captionDelay: 250,
+});
+
+console.log(lightbox);
